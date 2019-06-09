@@ -18,7 +18,7 @@
         <item name="android:inputType">number</item>
         <item name="android:gravity">center</item>
     </style>
-    <style name="ProgressBarStyle" parent="@android:style/Widget.Holo.ProgressBar"
+    <style name="ProgressBarStyle" parent="@android:style/Widget.Material.ProgressBar"
         />
 
 </resources>

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">TestCode</string>
     <string name="defaultValueInput">0</string>
-    <string name="calculate">Calculate</string>
+    <string name="calculate">คำนวณ</string>
 </resources>

@@ -4,6 +4,4 @@
     <item android:drawable="@color/press_btn" android:state_selected="true" />
     <item android:drawable="@color/default_btn" android:state_focused="true" />
     <item android:drawable="@color/default_btn"/>
-
-
 </selector>
