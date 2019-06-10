@@ -1,8 +1,12 @@
 package com.example.admin.testcode;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Point;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -25,16 +29,25 @@ public class MainActivity extends AppCompatActivity {
     TextView tvFirst,tvTwo,tvResult;
     EditText edtUnderTextTwo,edtInput1,edtInput2;
     Button btnCopy,calculate;
-    Integer inputNum1,inputNum2,sumInput1and2;
+    CustomViewGroup customViewGroup1,customViewGroup2;
     RadioGroup rgMath;
+
+    Integer inputNum1,inputNum2,sumInput1and2;
+
     Point size = new Point();
     Display display;
+
 //    RadioButton rbPlus,rbMinus,rbMultiply,rbDivide;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //set content
+        //UI
+        //findViewId
+        if(getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         initInstance();
         getDisplaySize();
 
@@ -71,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
         calculate.setOnClickListener(listener);
 
         rgMath = findViewById(R.id.rgMath);
+
+        customViewGroup1 =(CustomViewGroup) findViewById(R.id.viewGroup1);
+        customViewGroup2 =findViewById(R.id.viewGroup2);
+
+        customViewGroup1.setTextBtn("Hello");
+        customViewGroup2.setTextBtn("World");
 
     }
 
@@ -111,6 +130,24 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 tvResult.setText("result = "+sumInput1and2);
+                Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+                intent.putExtra("result",sumInput1and2);
+                Coordinate c1;
+                c1 = new Coordinate();
+                c1.x = 15;
+                c1.y = 20;
+                c1.z = 25;
+                Bundle bundle = new Bundle();
+                bundle.putInt("x",c1.x);
+                bundle.putInt("y",c1.y);
+                bundle.putInt("z",c1.z);
+                intent.putExtra("cBundle" , bundle);
+                CoordinateParcelable c3= new CoordinateParcelable();
+                c3.x = 12;
+                c3.y = 17;
+                c3.z = 22;
+                intent.putExtra("cParcelable",c3);
+                startActivityForResult(intent , 12345);
             }
         }
     };
@@ -127,6 +164,17 @@ public class MainActivity extends AppCompatActivity {
     };
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 12345) {
+            if (resultCode == RESULT_OK) {
+                String text = data.getStringExtra("result");
+                Toast.makeText(MainActivity.this, "Result is " + text, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
@@ -139,5 +187,44 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //Reserve a Resource(camera,GPS)
+        //Animation
+        //Timer
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //release a reserved-Resource(camera,GPS)
+        //Stop animation
+        //stop timer
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //commit unsaved change
+        //pause game
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //save thing
+//        outState.putString("text",tvResult.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        //restore thing
+//        tvResult.setText(savedInstanceState.getString("text"));
     }
 }

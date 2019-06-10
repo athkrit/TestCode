@@ -1,92 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/logo" />
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bg" />
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/logo" />
-
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_gravity="center_horizontal"
+                        android:text="Welcome to Clipzy"
+                        android:textColor="@color/fontColor"
+                        android:textSize="24sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/fontColor"
-                            android:text="Welcome to Clipzy"
-                            android:textSize="24sp" />
+                    <TextView
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="Welcome to Clipzy Wesa dasca cascasda "
+                        android:textColor="@color/fontColor" />
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </FrameLayout>
 
-                        <TextView
-                            android:gravity="center"
-                            android:layout_width="180dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/fontColor"
-                            android:text="Welcome to Clipzy Wesa dasca cascasda " />
-                    </LinearLayout>
-                </FrameLayout>
+            <Button
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_btn_getstart"
+                android:padding="16dp"
+                android:paddingBottom="10dp"
+                android:text="Get Start" />
 
-                <Button
-                    android:background="@drawable/selector_btn_getstart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Get Start"
-                    android:padding="16dp"
-                    android:paddingBottom="10dp"
-                    style="@style/textStyle" />
+            <TextView
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="8dp"
+                android:text="Skip" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Skip"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="8dp"
-                    style="@style/textStyle" />
+            <TextView
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="4dp"
+                android:text="By consuming you accept the Term of Use and Privacy Policy" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="By consuming you accept the Term of Use and Privacy Policy"
-                    android:paddingBottom="4dp"
-                    android:paddingTop="8dp"
-                    style="@style/textStyle" />
-
-            </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 
-</FrameLayout>
+</RelativeLayout>

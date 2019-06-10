@@ -6,12 +6,19 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class CustomView extends View {
 
     private boolean isBlue = false;
+    private boolean isDown = false;
+    private GestureDetector gestureDetector;
 
     public CustomView(Context context) {
         super(context);
@@ -38,7 +45,51 @@ public class CustomView extends View {
     }
 
     private void init() {
+        gestureDetector = new GestureDetector(getContext(), new GestureDetector.OnGestureListener() {
+            @Override
+            public boolean onDown(MotionEvent e) {
+                //Dicide Do or Not
+                return true;
+            }
 
+            @Override
+            public void onShowPress(MotionEvent e) {
+                getParent().requestDisallowInterceptTouchEvent(true);
+                //Do here
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                //Avtion Up
+                return false;
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                return false;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                isBlue = !isBlue;
+                invalidate();
+                return true;
+            }
+        });
+        //click Enable
+        setClickable(true);
+        //After this call,if it's not clickable , it will clickable
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -65,6 +116,51 @@ public class CustomView extends View {
             p.setColor(0xFFFF0000);//AARRGGBB
 
         canvas.drawLine(0, 0, getMeasuredWidth(), getMeasuredHeight(), p);
+        if (isDown) {
+            p.setColor(0xFF00FF00);
+            float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getContext().getResources().getDisplayMetrics());
+            p.setStrokeWidth(px);
+            canvas.drawLine(0, getMeasuredHeight(), getMeasuredWidth(), 0, p);
+        }
+    }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                isDown = true;
+                invalidate();
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_UP:
+                isDown = false;
+                invalidate();
+                return true;
+            case MotionEvent.ACTION_CANCEL:
+                isDown = false;
+                invalidate();
+                return true;
+        }
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        BundleSavedState savedState = new BundleSavedState(superState);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isBlue", isBlue);
+        savedState.setBundle(bundle);
+        return savedState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        BundleSavedState savedState = (BundleSavedState) state;
+        super.onRestoreInstanceState(savedState.getSuperState());
+        Bundle bundle = savedState.getBundle();
+        isBlue = bundle.getBoolean("isBlue");
     }
 }

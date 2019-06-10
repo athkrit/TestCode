@@ -73,7 +73,8 @@
                     android:id="@+id/tvResult"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:freezesText="true"/>
             </LinearLayout>
 
             <Button
@@ -118,14 +119,29 @@
                     android:text="/" />
             </RadioGroup>
 
+            <include layout="@layout/sample_bar"/>
             <ProgressBar
                 style="@style/ProgressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <com.example.admin.testcode.CustomViewGroup
+                android:id="@+id/viewGroup1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.example.admin.testcode.CustomViewGroup>
+            <com.example.admin.testcode.CustomViewGroup
+                android:id="@+id/viewGroup2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.example.admin.testcode.CustomViewGroup>
+
             <com.example.admin.testcode.CustomView
+                android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"/>
             <com.example.admin.testcode.CustomView
+                android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 app:isBlue="true"/>
